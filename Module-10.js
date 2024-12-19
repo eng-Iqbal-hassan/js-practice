@@ -59,3 +59,27 @@ console.log(lufthansa)
 
 book.call(lufthansa, ...flightData2)
 console.log(lufthansa)
+
+// There is another method which is bind method. Like call method it also resolve the issue of keyword this. But bind method returns the function instead of value.
+
+const bookEw = book.bind(eurowings);
+bookEw(23, 'Rahim');
+
+// we can set any number of params in the bind method
+const bookEw23 = book.bind(eurowings, 23)
+bookEw23('Jonas')  
+// so along with this keyword flight number is set and we just need the person by the name the flight is booked.
+// we can add even all the arguments in the bind method
+
+// Use case of the bind method is with the object and eventHandler.
+
+// Code snippet 
+lufthansa.planes = 300; 
+// from the above code, in lufthansa object one more element is added
+lufthansa.buyPlane = function() {
+    this.planes ++,
+    console.log(this.planes)
+}
+// document.querySelector('.buy').addEventListener('click', lufthansa.buyPlane)
+// So with the above line of code we want that whenever i click the button number of planes should be increased but i get the error because this key word is pointing to the dom element with className buy and not this lufthansa object. To resolve this issue lufthansa.buyPlane.bind is used because it will give the function and function call is required for addEventListener.
+document.querySelector('.buy').addEventListener('click', lufthansa.buyPlane.bind(lufthansa))
